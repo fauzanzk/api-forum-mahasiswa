@@ -2,8 +2,8 @@ const express = require("express");
 const cors = require("cors");
 require("dotenv").config();
 
-const orangsRouter = require("./routes/orangs.js"); // ← ganti
-
+const postsRouter = require("./routes/posts.js");
+const authRouter = require("./routes/auth.js");
 const app = express();
 
 // Middleware
@@ -22,14 +22,15 @@ app.get("/", (req, res) => {
     message: "API Forum",
     version: "1.0.0",
     endpoints: {
-      orangs: "/api/orangs", // ← ganti
+      posts: "/posts",
+      auth: "/auth/login",
     },
   });
 });
 
-// Route orangs
-app.use("/data", orangsRouter); // ← ganti
-
+// Routes
+app.use("/posts", postsRouter);
+app.use("/auth", authRouter);
 // 404
 app.use((req, res) => {
   res.status(404).json({
@@ -43,5 +44,6 @@ const PORT = process.env.PORT || 8080;
 
 app.listen(PORT, "0.0.0.0", () => {
   console.log(`🚀 Server jalan di http://localhost:${PORT}`);
-  console.log(`📚 API: http://localhost:${PORT}/api/orangs`);
+  console.log(`📚 Posts API: http://localhost:${PORT}/posts`);
+  console.log(`🔑 Auth API: http://localhost:${PORT}/auth/login`);
 });
