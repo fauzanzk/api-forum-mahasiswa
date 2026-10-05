@@ -10,7 +10,7 @@ const db = mysql.createPool({
   connectionLimit: 10,
 });
 
-async () => {
+(async () => {
   try {
     const conn = await db.getConnection();
     console.log("terhubung ke database");
@@ -18,6 +18,6 @@ async () => {
   } catch (err) {
     console.error("MySQL gagal terhubung : ", err.message);
   }
-};
+})();
 
 module.exports = db;

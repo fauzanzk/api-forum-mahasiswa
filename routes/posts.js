@@ -1,36 +1,73 @@
 const express = require("express");
 const router = express.Router();
+const db = require("../config/db.js");
 
-// Mock data based on forum-mahasiswa frontend home.dart
-const posts = [
-  {
-    id: 1,
-    nama: "SistemInformasi",
-    judul: "Tips bertahan hidup di ujian akhir Basis Data",
-    upvotes: "247",
-    comments: "38",
-  },
-  {
-    id: 2,
-    nama: "TeknikInformatika",
-    judul: "Ada saran judul skripsi untuk anak IT yang tidak jago ngoding?",
-    upvotes: "128",
-    comments: "45",
-  },
-  {
-    id: 3,
-    nama: "KehidupanKampus",
-    judul: "Tempat belajar paling nyaman di sekitar kampus",
-    upvotes: "1.2k",
-    comments: "150",
-  },
-];
+// ============================================
+// GET semua posts
+// ============================================
+router.get("/", async (req, res) => {
+  try {
+    const query = `
+      SELECT 
+        p.id, 
+        p.kategori AS nama, 
+        p.judul,
+        (SELECT COUNT(*) FROM upvotes u WHERE u.post_id = p.id) AS upvotes,
+        (SELECT COUNT(*) FROM comments c WHERE c.post_id = p.id) AS comments
+      FROM posts p
+      ORDER BY p.id DESC
+    `;
+    const [rows] = await db.query(query);
+    
+    // Note: upvotes and comments will be numbers as requested (not strings like "1.2k")
+    res.json({
+      success: true,
+      data: rows,
+    });
+  } catch (err) {
+    console.error("Error in GET /posts:", err);
+    res.status(500).json({
+      success: false,
+      error: "Terjadi kesalahan pada server",
+    });
+  }
+});
 
-router.get("/", (req, res) => {
-  res.json({
-    success: true,
-    data: posts,
-  });
+// ============================================
+// GET 1 post (opsional)
+// ============================================
+router.get("/:id", async (req, res) => {
+  try {
+    const query = `
+      SELECT 
+        p.id, 
+        p.kategori AS nama, 
+        p.judul,
+        (SELECT COUNT(*) FROM upvotes u WHERE u.post_id = p.id) AS upvotes,
+        (SELECT COUNT(*) FROM comments c WHERE c.post_id = p.id) AS comments
+      FROM posts p
+      WHERE p.id = ?
+    `;
+    const [rows] = await db.query(query, [req.params.id]);
+
+    if (rows.length === 0) {
+      return res.status(404).json({
+        success: false,
+        error: "Data tidak ditemukan",
+      });
+    }
+
+    res.json({
+      success: true,
+      data: rows[0],
+    });
+  } catch (err) {
+    console.error("Error in GET /posts/:id:", err);
+    res.status(500).json({
+      success: false,
+      error: "Terjadi kesalahan pada server",
+    });
+  }
 });
 
 module.exports = router;
