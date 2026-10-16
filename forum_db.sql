@@ -48,7 +48,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `email`, `password`, `image`, `created_at`) VALUES
-(1, 'emilys', 'emilys@dummyjson.com', '$2b$10$Q.OQpD8pYc9M2U7J3XmFZu0vYnFh5V5Z1W5U9U/eL.H.wH5y5v2rW', NULL, NOW());
+(1, 'emilys', 'emilys@dummyjson.com', '$2b$10$Xkc.ZM8jVCd5G80Bx46yvub6bfzXYTjhAmxnF1zjGezjW8AhbPxOO', NULL, NOW());
 
 -- --------------------------------------------------------
 
