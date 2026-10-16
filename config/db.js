@@ -1,23 +1,23 @@
-const mysql = require("mysql2");
+const mysql = require("mysql2/promise");
 require("dotenv").config();
 
-const pool = mysql.createPool({
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME,
-  connectionLimit: 10,
+const db = mysql.createPool({
+  host: process.env.DB_HOST || "localhost",
+  user: process.env.DB_USER || "root",
+  password: process.env.DB_PASSWORD || "",
+  database: process.env.DB_NAME || "forum_db",
   waitForConnections: true,
-  queueLimit: 0,
+  connectionLimit: 10,
 });
 
-pool.getConnection((err, connection) => {
-  if (err) {
-    console.error("gagal koneksi ke database: ", err.message);
-    return;
+(async () => {
+  try {
+    const conn = await db.getConnection();
+    console.log("✅ Berhasil terhubung ke database MySQL");
+    conn.release();
+  } catch (err) {
+    console.error("❌ MySQL gagal terhubung:", err.message);
   }
-  console.log("berhasil terhubung ke database");
-  connection.release();
-});
+})();
 
-module.exports = pool.promise();
+module.exports = db;
