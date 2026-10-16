@@ -1,21 +1,23 @@
 {
-  "name": "api",
+  "name": "api-forum-mahasiswa",
   "version": "1.0.0",
-  "description": "API forum mahasiswa",
-  "license": "ISC",
-  "author": "",
-  "type": "commonjs",
+  "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
   "dependencies": {
+    "bcrypt": "^6.0.0",
     "cors": "^2.8.6",
-    "dotenv": "^18.0.7",
+    "dotenv": "^18.0.8",
     "express": "^5.3.0",
     "mysql2": "^3.24.6"
   },
-  "devDependencies": {
-    "nodemon": "^1.14.10"
+  "allowScripts": {
+    "bcrypt@6.0.0": true
   }
 }
