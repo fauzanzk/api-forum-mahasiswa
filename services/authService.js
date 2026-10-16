@@ -1,6 +1,5 @@
 const db = require("../config/db");
 const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
 const ApiError = require("../utils/ApiError");
 
 // Service: Login
@@ -20,14 +19,7 @@ exports.login = async (username, password) => {
     throw new ApiError(400, "Invalid credentials");
   }
 
-  const token = jwt.sign(
-    { id: user.id, username: user.username },
-    process.env.JWT_SECRET || "default_secret_key",
-    { expiresIn: "7d" }
-  );
-
   return {
-    token,
     user: {
       id: user.id,
       username: user.username,
