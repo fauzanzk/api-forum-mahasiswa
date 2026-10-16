@@ -1,3 +1,11 @@
+# Kelompok 3 SI2024E
+
+1. Fauzan Zaki (24051214144)
+2. M. Zulfikar Wahyu P. (24051214146)
+3. Ihza Budi Cendhika (24051214163)
+4. Neilsen Iyanaka (24051214169)
+5. Arum Fatimah A. (24051214175)
+
 # Forum Mahasiswa
 
 Aplikasi Forum Mahasiswa berbasis Flutter untuk mobile dan didukung oleh RESTful API Backend berbasis Node.js & Express.
