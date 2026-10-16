@@ -11,6 +11,20 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8mb4 */;
 
+--
+-- Hapus tabel lama jika ada agar skema baru terpasang sempurna
+--
+SET FOREIGN_KEY_CHECKS = 0;
+DROP TABLE IF EXISTS `comment_votes`;
+DROP TABLE IF EXISTS `comments`;
+DROP TABLE IF EXISTS `post_votes`;
+DROP TABLE IF EXISTS `upvotes`;
+DROP TABLE IF EXISTS `community_members`;
+DROP TABLE IF EXISTS `communities`;
+DROP TABLE IF EXISTS `posts`;
+DROP TABLE IF EXISTS `users`;
+SET FOREIGN_KEY_CHECKS = 1;
+
 -- --------------------------------------------------------
 
 --
